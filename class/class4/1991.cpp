@@ -15,24 +15,19 @@ void solve(){
 
     for(int i=0; i<m; i++){
         int flag = 0;
-        int p; cin >> p;
-        for(int j=0; j<p; j++){
-            int q; cin >> q;
-            v[i].push_back(q);
-            if(know[q]) flag = 1;
+        int temp; cin >> temp;
+        for(int j=0; j<temp; j++){
+            int t; cin >> t;
+            v[i].push_back(t);
+            if(know[t]) flag = 1;
         }
-        if(flag) for(auto x : v[p]) know[x] = 1;
+        if(flag){
+            for(auto x : v[i]) know[x] = 1;
+            v[i].clear();
+        }
     }
 
-    for(int i=0; i<m; i++){
-        int flag = 1;
-        for(auto x : v[i]) if(know[x]) flag = 0;
-        if(flag){
-            ret++;
-            cout << ret << " " << i << '\n';
-        }
-    }
-    cout << ret;
+    
 }
 
 int main(){
