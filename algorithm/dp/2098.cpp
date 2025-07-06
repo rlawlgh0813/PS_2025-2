@@ -1,37 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define INF 1e9
-int n, ret = INF;
-int val[20][20], dp[20][20], vis[20];
+int n;
+int val[20][20], dp[20][1<<20];
 
-int go(int cur, int dest){
-    if(vis[cur]) return INF;
+int go(int cur, int vis){
+    if(vis == (1<<n)-1) return val[cur][0] ? val[cur][0] : INF;
 
-    int &ret = dp[cur][dest];
-    for(int i=1; i<n; i++){
-        if(vis[i] || val[cur][i] == 0 || i == cur) continue;
-        vis[i] = 1;
-        ret = min(ret, go(cur, i) + go(i, dest));
-        vis[i] = 0;
+    int &ret = dp[cur][vis];
+    if(ret != -1) return ret;
+    ret = INF;
+
+    for(int i=0; i<n; i++){
+        if((vis & (1<<i)) || val[cur][i] == 0) continue;
+        ret = min(ret, go(i, vis|(1<<i)) + val[cur][i]);
     }
     return ret;
 }
 
-void solve(){
+void solve(){ 
     cin >> n;
-    for(int i=0; i<n; i++){
-        for(int j=0; j<n; j++){
-            cin >> val[i][j];
-            dp[i][j] = val[i][j];
-        }
-    }
+    for(int i=0; i<n; i++) for(int j=0; j<n; j++) cin >> val[i][j];
+    memset(dp, -1, sizeof(dp));
 
-    for(int i=1; i<n; i++){
-        memset(vis, 0, sizeof(vis));
-        vis[0] = 1; vis[i] = 1;
-        ret = min(ret, go(0,i) + val[i][0]);
-    }
-    cout << ret;
+    cout << go(0,1);
 }
 
 int main(){
@@ -39,4 +31,4 @@ int main(){
 
     solve();
     return 0;
-}
+} 
