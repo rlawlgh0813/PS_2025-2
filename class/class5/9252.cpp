@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-int cnt;
 int dp[1004][1004];
 string a,b;
 vector<char> v;
