@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int n,m;
-int a[1004][1004], val[1000004], parent[1004];
+int a[1004][1004], val[1000004], parent[1000004];
 int dx[] = {0,1,0,-1}, dy[] = {-1,0,1,0};
 
 int Find(int n){

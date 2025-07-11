@@ -1,8 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define INF 1e9
-long long ret;
-int n;
+int n, ret;
 vector<pair<int,int>> v;
 
 void solve(){
