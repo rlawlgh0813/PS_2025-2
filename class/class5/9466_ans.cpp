@@ -3,7 +3,7 @@ using namespace std;
 int n,ret;
 int a[100004], vis[100004], check[100004];
 
-int go(int here){
+void go(int here){
     vis[here] = 1;
     int there = a[here];
 
@@ -19,7 +19,7 @@ void solve(){
     cin >> n;
     memset(vis, 0, sizeof(vis));
     memset(check, 0, sizeof(check));
-    ret = n;
+    ret = n;  
     for(int i=1; i<=n; i++) cin >> a[i];
 
     for(int i=1; i<=n; i++) if(!vis[i]) go(i);
