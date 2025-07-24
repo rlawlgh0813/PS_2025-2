@@ -15,7 +15,7 @@ void Union(int a, int b, int val){
     int B = Find(b);
     if(A != B){
         parent[B] = A;
-        dist[b] = dist[a] + val;
+        dist[B] = dist[a] - dist[b] + val;
     }
 }
 
