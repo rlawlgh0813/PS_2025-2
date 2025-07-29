@@ -4,15 +4,15 @@ int n,m,ret;
 int vis[104];
 vector<int> v[104];
 
-int go(int here){
+void go(int here){
     vis[here] = 1;
 
     int ret = 1;
     for(auto there : v[here]){
         if(vis[there]) continue;
-        ret += go(there);
+        ret++;
+        go(there);
     }
-    return ret;
 }
 
 void solve(){
@@ -22,7 +22,8 @@ void solve(){
         v[a].push_back(b);
         v[b].push_back(a);
     }
-    cout << go(1);
+    go(1);
+    cout << ret;
 }
 
 int main(){

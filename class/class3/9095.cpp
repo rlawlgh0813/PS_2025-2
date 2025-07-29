@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-int n,m;
+int n;
 int dp[15];
 
 void solve(){
@@ -13,16 +13,13 @@ void solve(){
         if(i-2 >= 0) dp[i] += dp[i-2];
         if(i-3 >= 0) dp[i] += dp[i-3];
     }
-    
-    while(n--){
-        cin >> m;
-        cout << dp[m];
-    }
+    cout << dp[n] << '\n';
 }
 
 int main(){
     ios::sync_with_stdio(0); cin.tie(0);
-    solve();
+    int tc; cin >> tc;
+    while(tc--) solve();
 
     return 0;
 }
