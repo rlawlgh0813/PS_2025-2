@@ -4,13 +4,16 @@ int n;
 int ret[2], vis[1000004];
 vector<int> adj[1000004];
 
-void go(int here, int parent, int depth){
+void go(int here, int parent){
     vis[here] = 1;
-    ret[depth]++;
+    
+    int isRoot = 0;
     for(auto there : adj[here]){
         if(there == parent || vis[there]) continue;
-        go(there, here, depth^1);
+        go(there, here);
+        isRoot = 1;
     }
+    if(isRoot)
 }
 
 void solve(){
@@ -20,7 +23,7 @@ void solve(){
         adj[p].push_back(q);
         adj[q].push_back(p);
     }
-    go(1,0,0);
+    go(1,0);
 
     cout << ret[0] << " " << ret[1] << '\n';
     cout << min(ret[0],ret[1]);

@@ -8,6 +8,19 @@ vector<pii> v(4 * 100004);
 
 pii init(int s, int e, int node){
     if(s == e){
+        v[node] = a[s];
+        return v[node];
+    }
+    int m = (s + e) / 2;
+    pii left = init(s, m, 2*node);
+    pii right = init(m+1, e, 2*node+1);
+    v[node].first = min(left.first, right.first);
+    v[node].second = max(left.second, right.second);
+    return v[node];
+}
+
+pii init(int s, int e, int node){
+    if(s == e){
         v[node].first = v[node].second = a[s];
         return v[node];
     }
