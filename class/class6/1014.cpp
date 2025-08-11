@@ -1,23 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define INF 10000000000
 int n,m;
-int dp[11][1<<10];
+int a[11], dp[11][1<<11];
 
 void solve(){
     cin >> n >> m;
-    memset(dp,0,sizeof(dp));
-
-    for(int i=0; i<n; i++){
+    memset(dp, 0, sizeof(dp));
+    
+    for(int i=1; i<=n; i++){
         string s; cin >> s;
-        for(int j=0; j<s.size(); j++) if(s[j] == 'x') dp[i][1 << (s.size()-1-j)] = 1;
+        int mask = 0;
+        for(int j=0; j<m; j++) if(s[j] == 'x') mask |= (1<<j);
+        a[i] = mask;
     }
 
-    for(int i=0; i<m; i++){
-        for(int j=0; j != (); j++){
-
+    for(int row=1; row<=n; row++){
+        for(int mask=0; mask<(1<<m); mask++){
+            if(a[row] & mask || mask & (mask << 1)) continue;
+            
+            for(int pmask=0; pmask<(1<<m); pmask++){
+                if(a[row-1] & pmask || pmask & (pmask << 1)) continue;
+                if(mask & (pmask<<1) || mask & (pmask>>1)) continue; 
+                dp[row][mask] = max(dp[row][mask], dp[row-1][pmask] + __builtin_popcount(mask));
+            }
         }
     }
+
+    int ret = 0;
+    for(int mask=0; mask<(1<<m); mask++) ret = max(ret, dp[n][mask]);
+    cout << ret << '\n';
 }
 
 int main(){
