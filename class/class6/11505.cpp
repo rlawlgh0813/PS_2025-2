@@ -4,7 +4,7 @@ using namespace std;
 typedef long long ll;
 int n,m,k;
 ll a[1000004];
-vector<ll> v(1000004 * 5);
+vector<ll> v(1000004 * 4);
 
 ll build(int s, int e, int node){
     if(s == e) return v[node] = a[s];
@@ -27,7 +27,7 @@ void update(int s, int e, int target, int val, int node){
 
 ll val(int s, int e, int l, int r, int node){
     if(e < l || r < s) return 1;
-    if(l >= s && e <= r) return v[node];
+    if(l <= s && e <= r) return v[node];
 
     int m = (s + e) / 2;
     return (val(s,m,l,r,node*2) * val(m+1,e,l,r,node*2+1)) % MOD;
