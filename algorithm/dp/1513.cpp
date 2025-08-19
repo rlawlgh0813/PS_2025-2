@@ -1,36 +1,46 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define INF 1000007
-int n,m,c;
-int a[51][51], dp[52][52][52];
+#define MOD 1000007
+int n,m,c,ret;
+int a[51][51], dp[52][52][52][52];
 vector<pair<int,int>> v;
 
 void solve(){
     cin >> n >> m >> c;
-    for(int i=1; i<=c; i++){
+    for(int i=1; i<=c; i++){  
         int p,q; cin >> p >> q;
-        a[p-1][q-1] = i;
-        v.push_back({p-1,q-1});
+        a[p][q] = i;
     }
 
-    if(a[0][0]) dp[0][0][1]++;
-    else dp[0][0][0]++;
-    for(int i=0; i<n; i++){
-        for(int j=0; j<m; j++){
-            int amt;
-            int p,q; make_pair(p,q) = v[a[i][j]-1];
-            for(int k=0; k<=c; k++){
-                if(a[i][j] == 0) amt = 0;
-                else if(k == 0 || a[i][j] == 1) amt = 1;
-                else if(dp[p][q][k-1]) amt = 1;
-                else break;
-                if(i-1 >= 0) dp[i][j][k+amt] += dp[i-1][j][k];
-                if(j-1 >= 0) dp[i][j][k+amt] += dp[i][j-1][k];
-                dp[i][j][k+amt] %= INF;
+    if(a[1][1]) dp[1][1][1][a[1][1]] = 1;
+    else dp[1][1][0][0] = 1;
+
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=m; j++){
+            if(i==1 && j==1) continue;
+            if(a[i][j] == 0){
+                for(int k=0; k<=c; k++){
+                    for(int prev=0; prev<=c; prev++){
+                        dp[i][j][k][prev] += dp[i-1][j][k][prev] + dp[i][j-1][k][prev];
+                        dp[i][j][k][prev] %= MOD;
+                    }
+                }
+            }else{
+                for(int k=1; k<=c; k++){
+                    for(int prev=0; prev<a[i][j]; prev++){
+                        dp[i][j][k][a[i][j]] += dp[i-1][j][k-1][prev] + dp[i][j-1][k-1][prev];
+                        dp[i][j][k][a[i][j]] %= MOD;
+                    }
+                }
             }
         }
     }
-    for(int i=0; i<=c; i++) cout << dp[n-1][m-1][i] << " ";
+
+    for(int i=0; i<=c; i++){
+        int ret = 0;
+        for(int j=0; j<=c; j++) ret += dp[n][m][i][j] % MOD;
+        cout << ret % MOD << " ";
+    }
 }
 
 int main(){
