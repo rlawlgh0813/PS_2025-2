@@ -13,16 +13,15 @@ void solve(){
         v.push_back({p-1,q-1});
     }
 
-    if(a[0][0]) dp[0][0][1]++;
-    else dp[0][0][0]++;
+    dp[0][0][a[0][0]] = 1;
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
             int amt;
             int p,q; make_pair(p,q) = v[a[i][j]-1];
             for(int k=0; k<=c; k++){
                 if(a[i][j] == 0) amt = 0;
-                else if(k == 0 || a[i][j] == 1) amt = 1;
-                else if(dp[p][q][k-1]) amt = 1;
+                else if(a[i][j] == 1) amt = 1;
+                else if(k > 1 && dp[p][q][k-1]) amt = 1;
                 else break;
                 if(i-1 >= 0) dp[i][j][k+amt] += dp[i-1][j][k];
                 if(j-1 >= 0) dp[i][j][k+amt] += dp[i][j-1][k];
