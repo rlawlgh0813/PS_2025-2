@@ -5,6 +5,7 @@
         "iostream": "cpp",
         "iosfwd": "cpp",
         "__tree": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "deque": "cpp"
     }
 }
