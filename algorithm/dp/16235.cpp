@@ -25,20 +25,22 @@ void solve(){
     sort(v.begin(), v.end(), cmp);
 
     while(k--){
+        // Spring
         for(int i=0; i<v.size(); i++){
             if(v[i].flag) continue;
             if(a[v[i].x][v[i].y] < v[i].age) v[i].flag = 1;
-            else{
-                a[v[i].x][v[i].y] -= v[i].age;
-                v[i].age++;
-            }
+            else a[v[i].x][v[i].y] -= v[i].age++;
         }
+        
+        // Summer
         for(int i=0; i<v.size(); i++) if(v[i].flag) a[v[i].x][v[i].y] += (v[i].age / 2);
-        int sz = v.size();
-        for(int i=0; i<sz; i++){
+        
+        // Fall
+        for(int i=0; i<v.size(); i++){
             if(v[i].flag) continue;
-            temp.push_back(v[i]); 
-            if (v[i].age % 5)continue;
+            else temp.push_back(v[i]); 
+
+            if (v[i].age % 5) continue;
             for(int j=0; j<8; j++){
                 int nx = v[i].x + dx[j];
                 int ny = v[i].y + dy[j];
@@ -48,6 +50,8 @@ void solve(){
             }
         }
         v = temp; temp.clear();
+        
+        // Winter
         for(int i=0; i<n; i++) for(int j=0; j<n; j++) a[i][j] += w[i][j];
     }
 
