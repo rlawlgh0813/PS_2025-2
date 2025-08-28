@@ -1,25 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
-int n;
-long long ret;
-long long a[100004];
+long long a,b;
 
 void solve(){
-    cin >> n;
-    ret = 0;
-    for(int i=0; i<n; i++){
-        long long t; cin >>t;
-        ret += t;
+    for(int i=0; i<4; i++){
+        long long t; cin >> t;
+        a += t;
     }
-    if(ret == 0) cout << ret;
-    else if(ret < 0) cout << "-";
-    else cout << "+";
-    cout << '\n';
-
+    for(int i=0; i<4; i++){
+        long long t; cin >> t;
+        b += t;
+    }
+    if(a > b) cout << a;
+    else cout << b;
 }
 
 int main(){
     ios::sync_with_stdio(0); cin.tie(0);
-    for(int i=0; i<3; i++) solve();
+    solve();
     return 0;
 }
